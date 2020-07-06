@@ -1,0 +1,232 @@
+CREATE DATABASE mt_db;
+USE mt_db;
+
+Create table CUSTOMER_MASTER
+(
+	CUSTOMER_ID Varchar(10),
+	CUSTOMER_NAME Varchar(30) NOT NULL,
+	CONTACT_NO BIGINT(10),
+	CONTACT_ADD Varchar(20),
+	DATE_OF_REGISTRATION Date NOT NULL,
+	AGE Varchar(15)NOT NULL,
+	Constraint MT_cts1 PRIMARY KEY(CUSTOMER_ID)
+);
+
+Create table LIBRARY_CARD_MASTER
+(
+	CARD_ID Varchar(10),
+	DESCRIPTION Varchar(30) NOT NULL,
+	AMOUNT	BIGINT(50),
+	NUMBER_OF_YEARS bigint(10) NOT NULL,
+	Constraint MT_cts2 PRIMARY KEY(CARD_ID)
+);
+
+
+Create table MOVIES_MASTER
+(
+	MOVIE_ID Varchar(10),	
+	MOVIE_NAME Varchar(50) NOT NULL,
+	RELEASE_DATE Varchar(30) NOT NULL,
+	LANGUAGE Varchar(30),
+	RATING int(2),
+	DURATION VARCHAR(10) NOT NULL,	
+	MOVIE_TYPE Varchar(3),
+	MOVIE_CATEGORY VARCHAR(20) NOT NULL,
+	DIRECTOR VARCHAR(20) NOT NULL,		
+	LEAD_ROLE_1 Varchar(3) NOT NULL,
+	LEAD_ROLE_2 VARCHAR(4) NOT NULL,
+	RENT_COST BIGINT(10),
+	Constraint MT_cts4 PRIMARY KEY(MOVIE_ID)	
+);
+
+Create table CUSTOMER_CARD_DETAILS
+(
+	CUSTOMER_ID Varchar(10),
+	CARD_ID VARCHAR(10),
+	ISSUE_DATE DATE NOT NULL,
+	Constraint MT_cts3 PRIMARY KEY(CUSTOMER_ID),
+	Constraint MT_CTS41 FOREIGN KEY(CUSTOMER_ID) References CUSTOMER_MASTER(CUSTOMER_ID),
+        Constraint MT_CTS42 FOREIGN KEY(CARD_ID) References LIBRARY_CARD_MASTER(CARD_ID)
+);
+
+Create table CUSTOMER_ISSUE_DETAILS
+(
+	ISSUE_ID Varchar(10) NOT NULL,
+	CUSTOMER_ID Varchar(10) NOT NULL,
+	MOVIE_ID VARCHAR(10),	
+	ISSUE_DATE Date NOT NULL,
+	RETURN_DATE Date NOT NULL,
+        ACTUAL_DATE_RETURN Date NOT NULL,
+	Constraint MT_cts5 PRIMARY KEY(ISSUE_ID),
+        Constraint MT_Mem FOREIGN KEY(CUSTOMER_ID) References CUSTOMER_MASTER(CUSTOMER_ID),
+        Constraint MT_Mem1 FOREIGN KEY(MOVIE_ID) References MOVIES_MASTER(MOVIE_ID)
+
+);
+
+
+
+
+
+Insert into CUSTOMER_MASTER Values('CUS001', 'AMIT', 9876543210,'ADD1', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS002', 'ABDHUL', 8765432109,'ADD2', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS003', 'GAYAN', 7654321098,'ADD3', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS004', 'RADHA', 6543210987,'ADD4', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS005', 'GURU', NULL,'ADD5', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS006', 'MOHAN', 4321098765,'ADD6', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS007', 'NAME7', 3210987654,'ADD7', '2012-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS008', 'NAME8', 2109876543,'ADD8', '2013-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS009', 'NAME9', NULL,'ADD9', '2013-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS010', 'NAM10', 9934567890,'ADD10', '2013-02-12', '21');
+Insert into CUSTOMER_MASTER Values('CUS011', 'NAM11', 9875678910,'ADD11', '2013-02-12', '21');
+
+Insert into LIBRARY_CARD_MASTER Values('CR001', 'Silver', 200, 5);
+Insert into LIBRARY_CARD_MASTER Values('CR002', 'Gold', 400, 9);
+Insert into LIBRARY_CARD_MASTER Values('CR003', 'Platinum', 600, 8);
+Insert into LIBRARY_CARD_MASTER Values('CR004', 'VISA', 800, 7);
+Insert into LIBRARY_CARD_MASTER Values('CR005', 'CREDIT', 1200, 6);
+
+Insert into MOVIES_MASTER Values('MV001', 'DIEHARD', '2012-05-13','ENGLISH', 4 , '2HRS', 'U/A','ACTION','DIR1','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV002', 'THE MATRIX', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ACTION','DIR2','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV003', 'INCEPTION', '2012-05-13','ENGLISH', 4 , '2HRS', 'U/A','ACTION','DIR3','L15','L2',100);
+Insert into MOVIES_MASTER Values('MV004', 'DARK KNIGHT', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ACTION','DIR4','L15','L2',100);
+Insert into MOVIES_MASTER Values('MV005', 'OFFICE S', '2012-05-13','ENGLISH', 4 , '2HRS', 'U/A','COMEDY','DIR5','L12','L24',100);
+Insert into MOVIES_MASTER Values('MV006', 'SHAWN OF DEAD', '2012-05-13','ENGLISH', 4 , '2HRS', 'U/A','COMEDY','DIR6','L1','L25',100);
+Insert into MOVIES_MASTER Values('MV007', 'YOUNG FRANKEN', '2012-05-13','ENGLISH', 4 , '2HRS', 'U/A','COMEDY','DIR7','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV008', 'CAS', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ROMANCE','DIR8','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV009', 'GWW', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ROMANCE','DIR9','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV010', 'TITANIC', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ROMANCE','DIR10','L1','L2',100);
+Insert into MOVIES_MASTER Values('MV011', 'THE NOTE BOOK', '2012-05-13','ENGLISH', 4 , '2HRS', 'A','ROMANCE','DIR11','L1','L2',100);
+
+
+Insert into CUSTOMER_CARD_DETAILS Values('CUS001', 'CR001', '2012-05-13');
+Insert into CUSTOMER_CARD_DETAILS Values('CUS002', 'CR002', '2012-05-13');
+Insert into CUSTOMER_CARD_DETAILS Values('CUS003', 'CR002', '2013-05-13');
+Insert into CUSTOMER_CARD_DETAILS Values('CUS004', 'CR003', '2013-05-13');
+Insert into CUSTOMER_CARD_DETAILS Values('CUS005', 'CR003', '2012-05-13');
+
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS001', 'CUS001', 'MV001', '2012-05-13', '2012-05-13','2012-05-13');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS002', 'CUS001', 'MV001', '2012-05-01', '2012-05-16','2012-05-16');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS003', 'CUS002', 'MV004', '2012-05-02', '2012-05-06','2012-05-16');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS004', 'CUS002', 'MV004', '2012-04-03', '2012-04-16','2012-04-20');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS005', 'CUS002', 'MV009', '2012-04-04', '2012-04-16','2012-04-20');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS006', 'CUS003', 'MV002', '2012-03-30', '2012-04-15','2012-04-20');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS007', 'CUS003', 'MV003', '2012-04-20', '2012-05-05','2012-05-05');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS008', 'CUS003', 'MV005', '2012-04-21', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS009', 'CUS003', 'MV001', '2012-04-22', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS010', 'CUS003', 'MV009', '2012-04-22', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS011', 'CUS003', 'MV010', '2012-04-23', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS012', 'CUS003', 'MV010', '2012-04-24', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS013', 'CUS003', 'MV008', '2012-04-25', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS014', 'CUS004', 'MV007', '2012-04-26', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS015', 'CUS004', 'MV006', '2012-04-27', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS016', 'CUS004', 'MV006', '2012-04-28', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS017', 'CUS004', 'MV001', '2012-04-29', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS018', 'CUS010', 'MV008', '2012-04-24', '2012-05-07','2012-05-25');
+Insert into CUSTOMER_ISSUE_DETAILS Values ('IS019', 'CUS011', 'MV009', '2012-04-27', '2012-05-07','2012-05-25');
+
+
+show tables;
+desc movies_master;
+select * from movies_master;
+
+
+/*Problem#1
+display customer name,customer id who have issued max and min no.of movies*/
+
+SELECT c.CUSTOMER_NAME, count(*) as MAX_ISSUE
+FROM customer_issue_details i, customer_master c
+WHERE c.CUSTOMER_ID = i.CUSTOMER_ID
+GROUP BY i.CUSTOMER_ID
+ORDER BY MAX_ISSUE DESC
+LIMIT 1;
+
+SELECT c.CUSTOMER_NAME, count(*) as MIN_ISSUE
+FROM customer_issue_details i, customer_master c
+WHERE c.CUSTOMER_ID = i.CUSTOMER_ID
+GROUP BY i.CUSTOMER_ID
+ORDER BY MIN_ISSUE 
+LIMIT 1;
+
+SELECT c.CUSTOMER_NAME, count(*) as NUM_ISSUE
+FROM customer_issue_details i, customer_master c
+WHERE c.CUSTOMER_ID = i.CUSTOMER_ID
+GROUP BY i.CUSTOMER_ID
+HAVING NUM_ISSUE = (
+	SELECT MAX(num) FROM (
+		SELECT count(MOVIE_ID) num
+        FROM customer_issue_details i, customer_master c
+		WHERE c.CUSTOMER_ID = i.CUSTOMER_ID
+		GROUP BY i.CUSTOMER_ID)L
+        );
+
+/*Problem #2
+display id,name,mobile num and description of all customers.if 
+mobile num is not available then display address as alias contact,for 
+those who does't have library cards display null as description*/
+
+SELECT c.CUSTOMER_ID, c.CUSTOMER_NAME, coalesce(c.CONTACT_NO,c.CONTACT_ADD) as contact,
+ifnull(lcm.DESCRIPTION, null) AS description
+FROM CUSTOMER_MASTER c
+LEFT JOIN CUSTOMER_CARD_DETAILS ccd
+ON c.CUSTOMER_ID = ccd.CUSTOMER_ID
+LEFT JOIN LIBRARY_CARD_MASTER lcm
+ON ccd.CARD_ID = lcm.CARD_ID;
+
+
+/*Problem #3
+display customer details and movie id for those who issued same movie more than one time OR
+//dislay customer details who watched same movie more than once*/
+select * 
+FROM CUSTOMER_MASTER
+WHERE CUSTOMER_ID in (
+	SELECT CUSTOMER_ID FROM(
+	SELECT CUSTOMER_ID, MOVIE_ID,count(*) AS NUM 
+	FROM CUSTOMER_ISSUE_DETAILS
+	GROUP BY CUSTOMER_ID, MOVIE_ID
+	HAVING NUM>1)L
+);
+
+
+/*Problem #4
+display customer information those who has library cards*/
+
+SELECT cm.CUSTOMER_ID, cm.CUSTOMER_NAME, cm.CONTACT_ADD, cm.CONTACT_NO,cm.AGE
+FROM CUSTOMER_MASTER cm
+RIGHT JOIN CUSTOMER_CARD_DETAILS ccd
+ON ccd.CUSTOMER_ID = cm.CUSTOMER_ID
+WHERE ccd.CARD_ID in
+(SELECT CARD_ID FROM LIBRARY_CARD_MASTER);
+
+
+/*Problem #5
+display the members who watch the movie but doesnt have card*/
+
+
+SELECT cm.CUSTOMER_ID, cm.CUSTOMER_NAME, cm.CONTACT_ADD, cm.CONTACT_NO,cm.AGE
+FROM CUSTOMER_MASTER cm
+JOIN CUSTOMER_ISSUE_DETAILS cid
+ON cm.CUSTOMER_ID = cid.CUSTOMER_ID
+WHERE cm.CUSTOMER_ID NOT IN (
+	SELECT CUSTOMER_ID
+    FROM CUSTOMER_CARD_DETAILS);
+
+/*Prblem #6
+display sr_no as 2 digits of issue id,emp id,movie watched,video id 
+and sort by sr_no*/
+SELECT substring(cid.ISSUE_ID,4) as Sr_No, 
+cm.CUSTOMER_ID AS EMP_ID, cid.ISSUE_ID AS VIDEO_ID, mm.MOVIE_ID, mm.MOVIE_NAME 
+FROM CUSTOMER_ISSUE_DETAILS cid JOIN CUSTOMER_MASTER cm JOIN MOVIES_MASTER mm
+ON cm.CUSTOMER_ID=cid.CUSTOMER_ID and cid.MOVIE_ID=mm.MOVIE_ID
+ORDER BY Sr_No;
+
+
+/*Problem #7
+display total revenue spent on videos by each customer*/
+SELECT CM.CUSTOMER_ID, CM.CUSTOMER_NAME, SUM(MM.RENT_COST) AS SPENT
+FROM CUSTOMER_MASTER CM
+JOIN CUSTOMER_ISSUE_DETAILS CID
+ON CM.CUSTOMER_ID = CID.CUSTOMER_ID
+LEFT JOIN MOVIES_MASTER MM
+ON CID.MOVIE_ID = MM.MOVIE_ID
+GROUP BY CM.CUSTOMER_ID, CM.CUSTOMER_NAME;
+
